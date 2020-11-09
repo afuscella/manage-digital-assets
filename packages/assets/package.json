@@ -1,0 +1,32 @@
+{
+  "name": "manage-digital-assets",
+  "version": "1.0.0",
+  "description": "Manage Digital Assets in a self-contained all-in-one fashion",
+  "scripts": {
+    "start": "npx cds run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afuscella/manage-digital-assets.git"
+  },
+  "author": "Arthur Silva",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^3.34.3",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.4.54",
+    "@sap/hana-client": "^2.6.61",
+    "express": "^4",
+    "hana": "0.0.2"
+  },
+  "devDependencies": {
+    "sqlite3": "^4.2.0"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite"
+      }
+    }
+  }
+}
