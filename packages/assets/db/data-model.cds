@@ -4,7 +4,7 @@ using {managed} from './lib/common';
 
 entity Assets : managed {
     key assetID            : String;
-        assetPortalLink    : String;
+        assetPortalLink    : String @Core.IsUrl;
         assetName          : String;
         description        : String;
         readyDate          : Date;
