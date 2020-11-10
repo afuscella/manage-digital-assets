@@ -8,7 +8,7 @@ service CatalogService {
       assetPortalLink,
       assetName,
       description,
-      readyDate,
+      readyDate @UI.DateField,
       theme,
       sku,
       campaign,

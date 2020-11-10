@@ -12,23 +12,23 @@ annotate CatalogService.Assets with @(UI : {
 
   // selection fields
   SelectionFields             : [
-    ToAssetType_ID,
-    ToContentManager_ID,
-    ToProductionStatus_ID,
-    readyDate
+  ToAssetType_ID,
+  ToContentManager_ID,
+  ToProductionStatus_ID,
+  readyDate
   ],
 
   // line items
   LineItem                    : [
-    {Value : assetID},
-    {Value : description},
-    {Value : ToAssetType_ID},
-    {Value : ToContentManager_ID},
-    {
-      Value       : ToProductionStatus_ID,
-      Criticality : ProductionStatusCriticality
-    },
-    {Value : readyDate, }
+  {Value : assetID},
+  // {Value : description},
+  {Value : ToAssetType_ID},
+  {Value : ToContentManager_ID},
+  {
+    Value       : ToProductionStatus_ID,
+    Criticality : ProductionStatusCriticality
+  },
+  {Value : readyDate, }
   ],
 
   // variant
@@ -48,7 +48,8 @@ annotate CatalogService.Assets with @(UI : {
     $Type  : 'UI.ReferenceFacet',
     Target : '@UI.FieldGroup#AssetStatus',
     Label  : '{i18n>Catalog.FacetAssetStatusData}',
-  }],
+  }
+  ],
 
   Facets                      : [{
     $Type  : 'UI.CollectionFacet',
@@ -111,9 +112,15 @@ annotate CatalogService.Assets with @(UI : {
     Value : assetPortalLink
   }]},
 }) {
-  assetID               @title : '{i18n>Catalog.AssetID}';
+  assetID               @(
+    title  : '{i18n>Catalog.AssetID}',
+    Common : {Text : {
+      $value                  : description,
+      ![@UI.badge.title.type] : #Standard
+    }}
+  );
   assetName             @title : '{i18n>Catalog.AssetName}';
-  description           @title : '{i18n>Catalog.Description}';
+  // description           @title : '{i18n>Catalog.Description}';
   readyDate             @title : '{i18n>Catalog.ReadyDate}';
   campaign              @title : '{i18n>Catalog.Campaing}';
   market                @title : '{i18n>Catalog.Market}';
@@ -130,7 +137,7 @@ annotate CatalogService.Assets with @(UI : {
     Common : {
       Text      : {
         $value                 : ToProductionStatus_ID,
-        ![@UI.TextArrangement] : #TextOnly
+        ![@UI.TextArrangement] : #TextFirst
       },
       ValueList : {
         SearchSupported : false,
@@ -151,17 +158,20 @@ annotate CatalogService.Assets with @(UI : {
         ![@UI.TextArrangement] : #TextFirst,
       },
       ValueList : {
-        SearchSupported : false,
+        SearchSupported : true,
         CollectionPath  : 'VH_AssetType',
-        Parameters      : [{
+        Parameters      : [
+        {
           $Type             : 'Common.ValueListParameterInOut',
           LocalDataProperty : ToAssetType_ID,
           ValueListProperty : 'Code'
-        }, {
+        },
+        {
           $Type             : 'Common.ValueListParameterInOut',
           LocalDataProperty : AssetTypeDescription,
           ValueListProperty : 'Text'
-        }]
+        }
+        ]
       }
     }
   );
@@ -175,15 +185,18 @@ annotate CatalogService.Assets with @(UI : {
       ValueList : {
         SearchSupported : true,
         CollectionPath  : 'VH_ContentManager',
-        Parameters      : [{
+        Parameters      : [
+        {
           $Type             : 'Common.ValueListParameterInOut',
           LocalDataProperty : ToContentManager_ID,
           ValueListProperty : 'Code'
-        }, {
+        },
+        {
           $Type             : 'Common.ValueListParameterInOut',
           LocalDataProperty : ContentManagerName,
           ValueListProperty : 'Text'
-        }]
+        }
+        ]
       }
     }
   );
