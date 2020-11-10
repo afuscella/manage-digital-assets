@@ -1,8 +1,8 @@
-assetID;assetPortalLink;assetName;description;productionStatus;readyDate;theme;sku;campaign;audience;subAudience;market;critically;assetType_ID;contentManager_ID
-AID13201;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13201;XYZ Poster;XYZ Poster for latest campaign;Done;2019-11-30;Duplo;60704;Latest Campaign;Kids;Boys;Global;3;101;101
-AID13202;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13202;XYZ Poster;XYZ Poster for latest campaign;Done;2019-11-29;Single;60705;Latest Campaign;Kids;Girls;Global;3;101;102
-AID13203;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13203;XYZ Poster;XYZ Poster for latest campaign;Done;2019-11-28;Duplo;60706;Latest Campaign;Kids;Boys;Global;3;101;101
-AID13204;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13204;XYZ Poster;XYZ Poster for latest campaign;Done;2019-11-27;Single;60707;Latest Campaign;Kids;Girls;Global;3;101;102
-AID13205;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13205;XYZ Poster;XYZ Poster for latest campaign;Done;2019-11-22;Duplo;60708;Latest Campaign;Kids;Boys;Global;3;101;101
-AID13206;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13206;XYZ Poster;XYZ Poster for latest campaign;Done;2019-11-10;Single;60709;Latest Campaign;Kids;Girls;Global;3;101;103
-AID13207;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13207;XYZ Poster;XYZ Poster for latest campaign;Done;2019-03-01;Duplo;60710;Latest Campaign;Kids;Boys;Global;1;101;103
+﻿assetID;assetPortalLink;assetName;description;readyDate;theme;sku;campaign;audience;subAudience;market;ToProductionStatus_ID;ToAssetType_ID;ToContentManager_ID
+AID13201;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13201;XYZ Poster;XYZ Poster for latest campaign;2019-11-30;Duplo;60704;Latest Campaign;Kids;Boys;Global;Done;201;101
+AID13202;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13202;XYZ Poster;XYZ Poster for latest campaign;2019-11-30;Single;60705;Latest Campaign;Kids;Girls;Global;Done;201;102
+AID13203;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13203;ABC Promotional Video;XYZ Poster for latest campaign;2019-11-30;Duplo;60706;Latest Campaign;Kids;Boys;Global;Done;202;101
+AID13204;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13204;ABC Promotional Video;XYZ Poster for latest campaign;2019-11-30;Single;60707;Latest Campaign;Kids;Girls;Global;Done;202;102
+AID13205;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13205;Simple Video;XYZ Poster for latest campaign;2019-11-30;Duplo;60708;Latest Campaign;Kids;Boys;Global;Ongoing;203;101
+AID13206;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13206;Simple Video Campaing;XYZ Poster for latest campaign;2019-11-30;Single;60709;Latest Campaign;Kids;Girls;Global;Ongoing;203;103
+AID13207;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13207;ABC Poster Wallpaper;XYZ Poster for latest campaign;2019-11-30;Duplo;60710;Latest Campaign;Kids;Boys;Global;Confidential;204;103

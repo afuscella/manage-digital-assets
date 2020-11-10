@@ -1,33 +1,34 @@
 namespace com.assets;
 
-entity Assets {
-    key assetID          : String;
-        assetPortalLink  : String;
-        assetName        : String;
-        description      : String;
-        productionStatus : String;
-        readyDate        : Date;
-        theme            : String;
-        sku              : String;
-        campaign         : String;
-        audience         : String;
-        subAudience      : String;
-        market           : String;
-        critically       : String;
-        assetType        : Association to AssetType;
-        contentManager   : Association to ContentManagers;
+using {managed} from './lib/common';
+
+entity Assets : managed {
+    key assetID            : String;
+        assetPortalLink    : String;
+        assetName          : String;
+        description        : String;
+        readyDate          : Date;
+        theme              : String;
+        sku                : String;
+        campaign           : String;
+        audience           : String;
+        subAudience        : String;
+        market             : String;
+        ToProductionStatus : Association to ProductionStatus;
+        ToAssetType        : Association to AssetType;
+        ToContentManager   : Association to ContentManagers;
 }
 
-entity ContentManagers {
-    key ID       : Integer;
-        name     : String;
-        ToAssets : Composition of many Assets
-                       on ToAssets.contentManager = $self;
+entity ProductionStatus {
+    key ID : String;
 }
 
 entity AssetType {
     key ID          : Integer;
         description : String;
-        ToAssets    : Composition of many Assets
-                          on ToAssets.assetType = $self;
+}
+
+entity ContentManagers {
+    key ID   : Integer;
+        name : String;
 }
