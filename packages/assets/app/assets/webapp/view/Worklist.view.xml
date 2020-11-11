@@ -1,0 +1,121 @@
+<mvc:View
+	controllerName="digitalassets.assets.controller.Worklist"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:footerbar="sap.ushell.ui.footerbar">
+
+	<semantic:SemanticPage
+		id="page">
+
+		<semantic:content>
+			<Table
+				id="table"
+				width="auto"
+        inset="false"
+				items="{
+					path: '/Assets',
+          parameters: {
+            expand: 'ToProductionStatus,ToAssetType,ToContentManager'
+          },
+					sorter: {
+						path: 'Description',
+						descending: false
+					}
+				}"
+				noDataText="{worklistView>/tableNoDataText}"
+				busyIndicatorDelay="{worklistView>/tableBusyDelay}"
+				growing="true"
+				growingScrollToLoad="true"
+				updateFinished=".onUpdateFinished">
+
+				<headerToolbar>
+					<OverflowToolbar>
+						<Title
+							id="tableHeader"
+							text="{worklistView>/worklistTableTitle}"
+							level="H3"/>
+						<ToolbarSpacer />
+						<SearchField
+							id="searchField"
+              placeholder="{i18n>worklistSearch}"
+							tooltip="{i18n>worklistSearchTooltip}"
+							search=".onSearch">
+							<layoutData>
+								<OverflowToolbarLayoutData
+									maxWidth="250px"
+									priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+					</OverflowToolbar>
+				</headerToolbar>
+
+				<columns>
+					<Column id="assetColumn">
+						<Text text="{i18n>columnNameAsset}" id="asset"/>
+					</Column>
+
+					<Column id="assetDescriptionColumn">
+						<Text text="{i18n>columnNameDescription}" id="assetTypeDescription"/>
+					</Column>
+
+					<Column id="assetTypeColumn" hAlign="Center">
+						<Text text="{i18n>columnNameAssetType}" id="assetType"/>
+					</Column>
+
+					<Column id="assetProductionStatusColumn" hAlign="Center">
+						<Text text="{i18n>columnNameProductionStatus}" id="assetProductionStatus"/>
+					</Column>
+
+					<Column id="assetContentManagerNameColumn" hAlign="End">
+						<Text text="{i18n>columnNameContentManager}" id="assetContentManagerName"/>
+					</Column>
+
+				</columns>
+
+				<items>
+					<ColumnListItem
+						type="Navigation"
+						press=".onPress"
+            highlight="{
+              path:'ToProductionStatus/ID', 
+              formatter: '.formatter.formatCritically'
+            }">
+						<cells>
+							<ObjectIdentifier
+                text="{AssetName}"
+								title="{AssetID}"/>
+
+              <Text text="{Description}" />
+
+              <ObjectStatus
+                text="{ToAssetType/Description}"
+                state="Information" 
+                icon="{
+                  path:'ToAssetType/ID', 
+                  formatter: '.formatter.formatAssetTypeIcon'
+                }" />
+
+              <ObjectStatus
+                text="{ToProductionStatus/ID}"
+                state="{
+                  path:'ToProductionStatus/ID', 
+                  formatter: '.formatter.formatCritically'
+                }" />
+
+							<ObjectIdentifier
+								title="{ToContentManager/Name}"/>
+
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+
+		<!-- <semantic:saveAsTileAction>
+			<footerbar:AddBookmarkButton id ="shareTile" title="{worklistView>/saveAsTileTitle}" />
+		</semantic:saveAsTileAction> -->
+
+	</semantic:SemanticPage>
+
+</mvc:View>
