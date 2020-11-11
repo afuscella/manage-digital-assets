@@ -2,132 +2,35 @@
 	controllerName="digitalassets.assets.controller.Worklist"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.f.semantic"
-	xmlns:footerbar="sap.ushell.ui.footerbar">
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable">
 
-	<semantic:SemanticPage
-		id="page">
+  <VBox fitContainer="true">
+  	<smartFilterBar:SmartFilterBar
+      id="smartFilterBar"
+		  enableBasicSearch="true"
+      entitySet="Assets"
+      persistencyKey="SmartFilter_Explored" />
 
-		<semantic:content>
-			<Table
-				id="table"
-				width="auto"
-        inset="false"
-				items="{
-					path: '/Assets',
-          parameters: {
-            expand: 'ToProductionStatus,ToAssetType,ToContentManager'
-          },
-					sorter: {
-						path: 'Description',
-						descending: false
-					}
-				}"
-				noDataText="{worklistView>/tableNoDataText}"
-				busyIndicatorDelay="{worklistView>/tableBusyDelay}"
-				growing="true"
-				growingScrollToLoad="true"
-				updateFinished=".onUpdateFinished">
+    <smartTable:SmartTable 
+      entitySet="Assets"
+      enableAutoBinding="true"
+      demandPopin="true"
+      useExportToExcel="false" 
+      useVariantManagement="false"
+      useTablePersonalisation="true"
+      header="Line Items"
+      smartFilterId="smartFilterBar"
+      persistencyKey="SmartTableRefApp_Explored" 
+      showDetailsButton="true"
+      showRowCount="true" 
+      tableType="ResponsiveTable" 
+      class="sapUiResponsiveContentPadding">
 
-				<headerToolbar>
-					<OverflowToolbar>
-						<Title
-							id="tableHeader"
-							text="{worklistView>/worklistTableTitle}"
-							level="H3"/>
-						<ToolbarSpacer />
-						<SearchField
-							id="searchField"
-              placeholder="{i18n>worklistSearch}"
-							tooltip="{i18n>worklistSearchTooltip}"
-							search=".onSearch">
-							<layoutData>
-								<OverflowToolbarLayoutData
-									maxWidth="250px"
-									priority="NeverOverflow"/>
-							</layoutData>
-						</SearchField>
-					</OverflowToolbar>
-				</headerToolbar>
-
-				<columns>
-					<Column id="assetColumn">
-						<Text text="{i18n>columnNameAsset}" id="asset"/>
-					</Column>
-
-					<Column id="assetDescriptionColumn">
-						<Text text="{i18n>columnNameDescription}" id="assetTypeDescription"/>
-					</Column>
-
-					<Column id="assetTypeColumn" hAlign="Center">
-						<Text text="{i18n>columnNameAssetType}" id="assetType"/>
-					</Column>
-
-					<Column id="assetProductionStatusColumn" hAlign="Center">
-						<Text text="{i18n>columnNameProductionStatus}" id="assetProductionStatus"/>
-					</Column>
-
-					<Column id="readyDateColumn" hAlign="End">
-						<Text text="{i18n>columnNameReadyDate}" id="readyDate"/>
-					</Column>
-
-					<Column id="assetContentManagerNameColumn" hAlign="End">
-						<Text text="{i18n>columnNameContentManager}" id="assetContentManagerName"/>
-					</Column>
-
-				</columns>
-
-				<items>
-					<ColumnListItem
-						type="Navigation"
-						press=".onPress"
-            highlight="{
-              path:'ToProductionStatus/ID', 
-              formatter: '.formatter.formatCritically'
-            }">
-						<cells>
-							<ObjectIdentifier
-                text="{AssetName}"
-								title="{AssetID}"/>
-
-              <Text text="{Description}" />
-
-              <ObjectStatus
-                text="{ToAssetType/Description}"
-                state="Information" 
-                icon="{
-                  path:'ToAssetType/ID', 
-                  formatter: '.formatter.formatAssetTypeIcon'
-                }" />
-
-              <ObjectStatus
-                text="{ToProductionStatus/ID}"
-                state="{
-                  path:'ToProductionStatus/ID', 
-                  formatter: '.formatter.formatCritically'
-                }" />
-
-              <Text 
-                text="{
-                  path : 'ReadyDate',
-                  type : 'sap.ui.model.type.Date',
-                  formatOptions: {
-                    style : 'long'
-                  } 
-                }"/>
-
-							<ObjectIdentifier title="{ToContentManager/Name}"/>
-
-						</cells>
-					</ColumnListItem>
-				</items>
-			</Table>
-		</semantic:content>
-
-		<!-- <semantic:saveAsTileAction>
-			<footerbar:AddBookmarkButton id ="shareTile" title="{worklistView>/saveAsTileTitle}" />
-		</semantic:saveAsTileAction> -->
-
-	</semantic:SemanticPage>
+      <smartTable:layoutData>
+        <FlexItemData growFactor="1" baseSize="0%"/>
+      </smartTable:layoutData>
+    </smartTable:SmartTable>
+  </VBox>
 
 </mvc:View>

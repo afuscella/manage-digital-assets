@@ -7,7 +7,7 @@ entity Assets : managed {
         AssetPortalLink    : String @Core.IsUrl;
         AssetName          : String;
         Description        : String;
-        ReadyDate          : Date;
+        ReadyDate          : Date   @UI.DateField;
         Theme              : String;
         Sku                : String;
         Campaign           : String;

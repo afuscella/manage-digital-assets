@@ -1,37 +1,532 @@
-<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="1.0"
-	xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
-	<edmx:DataServices m:DataServiceVersion="2.0"
-		xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
-		<Schema Namespace="WORKLIST" xml:lang="en"
-			xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-
-			<EntityType Name="Object" sap:content-version="1"
-				xmlns:sap="http://www.sap.com/Protocols/SAPData">
-				<Key>
-					<PropertyRef Name="assetID" />
-				</Key>
-				<Property Name="assetID" Type="Edm.String" Nullable="false"
-					MaxLength="40" sap:label="Object ID" sap:creatable="false"
-					sap:updatable="false" />
-				<Property Name="description" Type="Edm.String" Nullable="false"
-					MaxLength="255" sap:label="Name"
-					sap:creatable="false"
-					sap:updatable="false"/>
-				<Property Name="" Type="Edm.String" Nullable="false"
-					MaxLength="3" sap:label="Unit of Measure" sap:creatable="false"
-					sap:updatable="false" sap:sortable="false" sap:filterable="false" />
-			</EntityType>
-
-			<EntityContainer Name="WORKLIST_ENTITIES"
-				m:IsDefaultEntityContainer="true">
-				<EntitySet Name="Assets" EntityType="WORKLIST.Object"
-					sap:creatable="false"
-					sap:updatable="false"
-					sap:deletable="false"
-					sap:pageable="false" sap:content-version="1"
-					xmlns:sap="http://www.sap.com/Protocols/SAPData" />
-			</EntityContainer>
-		</Schema>
-	</edmx:DataServices>
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+  xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+  xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+  <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+  </edmx:Reference>
+  <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:DataServices m:DataServiceVersion="2.0">
+    <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="CatalogService">
+      <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Assets" EntityType="CatalogService.Assets"/>
+        <EntitySet Name="VH_AssetType" EntityType="CatalogService.VH_AssetType"/>
+        <EntitySet Name="VH_ContentManager" EntityType="CatalogService.VH_ContentManager"/>
+        <EntitySet Name="VH_ProductionStatus" EntityType="CatalogService.VH_ProductionStatus"/>
+        <AssociationSet Name="Assets_ToProductionStatus" Association="CatalogService.Assets_ToProductionStatus">
+          <End Role="Assets" EntitySet="Assets"/>
+          <End Role="VH_ProductionStatus" EntitySet="VH_ProductionStatus"/>
+        </AssociationSet>
+        <AssociationSet Name="Assets_ToAssetType" Association="CatalogService.Assets_ToAssetType">
+          <End Role="Assets" EntitySet="Assets"/>
+          <End Role="VH_AssetType" EntitySet="VH_AssetType"/>
+        </AssociationSet>
+        <AssociationSet Name="Assets_ToContentManager" Association="CatalogService.Assets_ToContentManager">
+          <End Role="Assets" EntitySet="Assets"/>
+          <End Role="VH_ContentManager" EntitySet="VH_ContentManager"/>
+        </AssociationSet>
+      </EntityContainer>
+      <EntityType Name="Assets">
+        <Key>
+          <PropertyRef Name="AssetID"/>
+        </Key>
+        <Property Name="AssetID" Type="Edm.String" Nullable="false"/>
+        <Property Name="AssetPortalLink" Type="Edm.String"/>
+        <Property Name="AssetName" Type="Edm.String"/>
+        <Property Name="Description" Type="Edm.String"/>
+        <Property Name="ReadyDate" Type="Edm.DateTime" sap:display-format="Date"/>
+        <Property Name="Theme" Type="Edm.String"/>
+        <Property Name="Sku" Type="Edm.String"/>
+        <Property Name="Campaign" Type="Edm.String"/>
+        <Property Name="Audience" Type="Edm.String"/>
+        <Property Name="SubAudience" Type="Edm.String"/>
+        <Property Name="Market" Type="Edm.String"/>
+        <NavigationProperty Name="ToProductionStatus" Relationship="CatalogService.Assets_ToProductionStatus" FromRole="Assets" ToRole="VH_ProductionStatus"/>
+        <NavigationProperty Name="ToAssetType" Relationship="CatalogService.Assets_ToAssetType" FromRole="Assets" ToRole="VH_AssetType"/>
+        <Property Name="AssetType_Description" Type="Edm.String"/>
+        <NavigationProperty Name="ToContentManager" Relationship="CatalogService.Assets_ToContentManager" FromRole="Assets" ToRole="VH_ContentManager"/>
+        <Property Name="ContentManager_Name" Type="Edm.String"/>
+        <Property Name="ToProductionStatus_ID" Type="Edm.String"/>
+        <Property Name="ToAssetType_ID" Type="Edm.Int32"/>
+        <Property Name="ToContentManager_ID" Type="Edm.Int32"/>
+      </EntityType>
+      <EntityType Name="VH_AssetType">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="Description" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="VH_ContentManager">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="VH_ProductionStatus">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.String" Nullable="false"/>
+        <Property Name="Criticality" Type="Edm.Int32"/>
+      </EntityType>
+      <Association Name="Assets_ToProductionStatus">
+        <End Role="Assets" Type="CatalogService.Assets" Multiplicity="*"/>
+        <End Role="VH_ProductionStatus" Type="CatalogService.VH_ProductionStatus" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="VH_ProductionStatus">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="Assets">
+            <PropertyRef Name="ToProductionStatus_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Assets_ToAssetType">
+        <End Role="Assets" Type="CatalogService.Assets" Multiplicity="*"/>
+        <End Role="VH_AssetType" Type="CatalogService.VH_AssetType" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="VH_AssetType">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="Assets">
+            <PropertyRef Name="ToAssetType_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Assets_ToContentManager">
+        <End Role="Assets" Type="CatalogService.Assets" Multiplicity="*"/>
+        <End Role="VH_ContentManager" Type="CatalogService.VH_ContentManager" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="VH_ContentManager">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="Assets">
+            <PropertyRef Name="ToContentManager_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets">
+        <Annotation Term="UI.Common">
+          <Record>
+            <PropertyValue Property="Label" String="Products"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.CollectionFacet">
+              <PropertyValue Property="Label" String="Asset Information"/>
+              <PropertyValue Property="Facets">
+                <Collection>
+                  <Record Type="UI.ReferenceFacet">
+                    <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Description"/>
+                    <PropertyValue Property="Label" String="Description"/>
+                  </Record>
+                  <Record Type="UI.ReferenceFacet">
+                    <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Data"/>
+                    <PropertyValue Property="Label" String="Data"/>
+                  </Record>
+                  <Record Type="UI.ReferenceFacet">
+                    <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Audience"/>
+                    <PropertyValue Property="Label" String="Audience"/>
+                  </Record>
+                  <Record Type="UI.ReferenceFacet">
+                    <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#AssetPortalLink"/>
+                    <PropertyValue Property="Label" String="Asset Portal Link"/>
+                  </Record>
+                </Collection>
+              </PropertyValue>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="AssetAudience">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="Audience"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="SubAudience"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="AssetHeader">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="AssetName"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ToAssetType_ID"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="Description"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="AssetPortalLink">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataFieldWithUrl">
+                  <PropertyValue Property="Value" Path="AssetPortalLink"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="AssetStatus">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ToProductionStatus_ID"/>
+                  <PropertyValue Property="Criticality" Path="ToProductionStatus/Criticality"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ContentManager_Name"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ReadyDate"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="Audience">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="Audience"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="SubAudience"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="Data">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="Sku"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="Theme"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="Description">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="Campaign"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="Market"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.HeaderFacets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#AssetHeader"/>
+              <PropertyValue Property="Label" String="Details"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#AssetStatus"/>
+              <PropertyValue Property="Label" String="Status"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="AssetName"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="Description"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="TypeName" String="Asset"/>
+            <PropertyValue Property="TypeNamePlural" String="Assets"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="AssetID"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="ToAssetType_ID"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="ToContentManager_ID"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="ToProductionStatus_ID"/>
+              <PropertyValue Property="Criticality" Path="ToProductionStatus/Criticality"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="ReadyDate"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.PresentationVariant">
+          <Record Type="UI.PresentationVariantType">
+            <PropertyValue Property="SortOrder">
+              <Collection>
+                <Record Type="Common.SortOrderType">
+                  <PropertyValue Property="Property" PropertyPath="AssetID"/>
+                  <PropertyValue Property="Descending" Bool="false"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.SelectionFields">
+          <Collection>
+            <PropertyPath>ToAssetType_ID</PropertyPath>
+            <PropertyPath>ToContentManager_ID</PropertyPath>
+            <PropertyPath>ToProductionStatus_ID</PropertyPath>
+            <PropertyPath>ReadyDate</PropertyPath>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/AssetID">
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/AssetPortalLink">
+        <Annotation Term="Common.Label" String="Portal Link"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.IsUrl" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/AssetName">
+        <Annotation Term="Common.Label" String="Asset Name"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/Description">
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/ReadyDate">
+        <Annotation Term="Common.Label" String="Ready Date"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="UI.DateField" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/Theme">
+        <Annotation Term="Common.Label" String="Theme"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/Sku">
+        <Annotation Term="Common.Label" String="SKU"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/Campaign">
+        <Annotation Term="Common.Label" String="Campaing"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/Audience">
+        <Annotation Term="Common.Label" String="Audience"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/SubAudience">
+        <Annotation Term="Common.Label" String="Sub Audience"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/Market">
+        <Annotation Term="Common.Label" String="Market"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/ToProductionStatus">
+        <Annotation Term="Common.Label" String="Production Status"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/ToAssetType">
+        <Annotation Term="Common.Label" String="Asset Type"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/AssetType_Description">
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/ToContentManager">
+        <Annotation Term="Common.Label" String="Content Manager"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/ContentManager_Name">
+        <Annotation Term="Common.Label" String="Content Manager"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/ToProductionStatus_ID">
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+        <Annotation Term="Common.Label" String="Production Status"/>
+        <Annotation Term="Common.Text" Path="ToProductionStatus/ID">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="VH_ProductionStatus"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="ToProductionStatus_ID"/>
+                  <PropertyValue Property="ValueListProperty" String="ID"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/ToAssetType_ID">
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+        <Annotation Term="Common.Label" String="Asset Type"/>
+        <Annotation Term="Common.Text" Path="AssetType_Description">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextFirst"/>
+        </Annotation>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="VH_AssetType"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="ToAssetType_ID"/>
+                  <PropertyValue Property="ValueListProperty" String="ID"/>
+                </Record>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="AssetType_Description"/>
+                  <PropertyValue Property="ValueListProperty" String="Description"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Assets/ToContentManager_ID">
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+        <Annotation Term="Common.Label" String="Content Manager"/>
+        <Annotation Term="Common.Text" Path="ContentManager_Name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextFirst"/>
+        </Annotation>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="VH_ContentManager"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="ToContentManager_ID"/>
+                  <PropertyValue Property="ValueListProperty" String="ID"/>
+                </Record>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="ContentManager_Name"/>
+                  <PropertyValue Property="ValueListProperty" String="Name"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.EntityContainer/VH_AssetType">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.VH_AssetType/ID">
+        <Annotation Term="Common.Label" String="Code"/>
+        <Annotation Term="Common.Text" Path="Text"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.VH_AssetType/Description">
+        <Annotation Term="Common.Label" String="Description"/>
+        <Annotation Term="UI.HiddenFilter" Bool="false"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.EntityContainer/VH_ContentManager">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.VH_ContentManager/ID">
+        <Annotation Term="Common.Label" String="Code"/>
+        <Annotation Term="Common.Text" Path="Text"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.VH_ContentManager/Name">
+        <Annotation Term="Common.Label" String="Description"/>
+        <Annotation Term="UI.HiddenFilter" Bool="false"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.EntityContainer/VH_ProductionStatus">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.VH_ProductionStatus/ID">
+        <Annotation Term="Common.Label" String="Code"/>
+        <Annotation Term="Common.Text" Path="Text"/>
+      </Annotations>
+      <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.VH_ProductionStatus/Criticality">
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
 </edmx:Edmx>

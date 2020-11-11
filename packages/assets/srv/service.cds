@@ -4,22 +4,22 @@ service CatalogService {
   @update  @delete
   entity Assets              as
     select from assets.Assets {
-      AssetID,
-      AssetPortalLink,
-      AssetName,
-      Description,
-      ReadyDate                                        @UI.DateField,
-      Theme,
-      Sku,
-      Campaign,
-      Audience,
-      SubAudience,
-      Market,
-      ToProductionStatus                               @mandatory @update,
-      ToAssetType                                      @mandatory,
-      ToAssetType.Description as AssetType_Description @readonly,
-      ToContentManager                                 @mandatory,
-      ToContentManager.Name   as ContentManager_Name   @readonly,
+      AssetID                                          @readonly,
+      AssetPortalLink                                  @readonly,
+      AssetName                                        @readonly,
+      Description                                      @readonly,
+      ReadyDate                                        @readonly,
+      Theme                                            @readonly,
+      Sku                                              @readonly,
+      Campaign                                         @readonly,
+      Audience                                         @readonly,
+      SubAudience                                      @readonly,
+      Market                                           @readonly,
+      ToProductionStatus                               @update @mandatory,
+      ToAssetType                                      @readonly @mandatory,
+      ToAssetType.Description as AssetType_Description @readonly @UI.Hidden,
+      ToContentManager                                 @readonly @mandatory,
+      ToContentManager.Name   as ContentManager_Name   @readonly @UI.Hidden,
     };
 
   @readonly

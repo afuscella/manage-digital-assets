@@ -101,23 +101,14 @@
                 "viewPath": "digitalassets.assets.view",
                 "controlId": "app",
                 "controlAggregation": "pages",
-                "bypassed": {
-                    "target": ["notFound"]
-                },
                 "async": true
             },
 
             "routes": [{
-                    "pattern": "",
-                    "name": "worklist",
-                    "target": ["worklist"]
-                },
-                {
-                    "pattern": "Assets/{objectId}",
-                    "name": "object",
-                    "target": ["object"]
-                }
-            ],
+                "pattern": "",
+                "name": "worklist",
+                "target": ["worklist"]
+            }],
 
             "targets": {
                 "worklist": {
@@ -125,20 +116,6 @@
                     "viewId": "worklist",
                     "viewLevel": 1,
                     "title": "{i18n>worklistViewTitle}"
-                },
-                "object": {
-                    "viewName": "Object",
-                    "viewId": "object",
-                    "viewLevel": 2,
-                    "title": "{i18n>objectViewTitle}"
-                },
-                "objectNotFound": {
-                    "viewName": "ObjectNotFound",
-                    "viewId": "objectNotFound"
-                },
-                "notFound": {
-                    "viewName": "NotFound",
-                    "viewId": "notFound"
                 }
             }
         }
