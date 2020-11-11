@@ -6,8 +6,8 @@ annotate CatalogService.Assets with @(UI : {
   HeaderInfo                  : {
     TypeName       : '{i18n>Catalog.TypeName}',
     TypeNamePlural : '{i18n>Catalog.TypeNamePlural}',
-    Description    : {Value : assetName},
-    Title          : {Value : description},
+    Description    : {Value : AssetName},
+    Title          : {Value : Description},
   },
 
   // selection fields
@@ -15,26 +15,25 @@ annotate CatalogService.Assets with @(UI : {
   ToAssetType_ID,
   ToContentManager_ID,
   ToProductionStatus_ID,
-  readyDate
+  ReadyDate
   ],
 
   // line items
   LineItem                    : [
-  {Value : assetID},
-  // {Value : description},
+  {Value : AssetID},
   {Value : ToAssetType_ID},
   {Value : ToContentManager_ID},
   {
     Value       : ToProductionStatus_ID,
-    Criticality : ProductionStatusCriticality
+    Criticality : ToProductionStatus.Criticality
   },
-  {Value : readyDate, }
+  {Value : ReadyDate}
   ],
 
   // variant
   PresentationVariant         : {SortOrder : [{
     $Type      : 'Common.SortOrderType',
-    Property   : assetID,
+    Property   : AssetID,
     Descending : false
   }]},
 
@@ -79,65 +78,64 @@ annotate CatalogService.Assets with @(UI : {
   }],
 
   FieldGroup #AssetHeader     : {Data : [
-  {Value : assetName},
+  {Value : AssetName},
   {Value : ToAssetType_ID},
-  {Value : description}
+  {Value : Description}
   ]},
   FieldGroup #AssetAudience   : {Data : [
-  {Value : audience},
-  {Value : subAudience}
+  {Value : Audience},
+  {Value : SubAudience}
   ]},
   FieldGroup #AssetStatus     : {Data : [
   {
     Value       : ToProductionStatus_ID,
-    Criticality : ProductionStatusCriticality
+    Criticality : ToProductionStatus.Criticality
   },
-  {Value : ContentManagerName},
-  {Value : readyDate}
+  {Value : ContentManager_Name},
+  {Value : ReadyDate}
   ]},
   FieldGroup #Description     : {Data : [
-  {Value : campaign},
-  {Value : market},
+  {Value : Campaign},
+  {Value : Market},
   ]},
   FieldGroup #Data            : {Data : [
-  {Value : sku},
-  {Value : theme}
+  {Value : Sku},
+  {Value : Theme}
   ]},
   FieldGroup #Audience        : {Data : [
-  {Value : audience},
-  {Value : subAudience},
+  {Value : Audience},
+  {Value : SubAudience},
   ]},
   FieldGroup #AssetPortalLink : {Data : [{
     $Type : 'UI.DataFieldWithUrl',
-    Value : assetPortalLink
+    Value : AssetPortalLink
   }]},
 }) {
   assetID               @(
     title  : '{i18n>Catalog.AssetID}',
     Common : {Text : {
-      $value                  : description,
+      $value                  : Description,
       ![@UI.badge.title.type] : #Standard
     }}
   );
-  assetName             @title : '{i18n>Catalog.AssetName}';
-  // description           @title : '{i18n>Catalog.Description}';
-  readyDate             @title : '{i18n>Catalog.ReadyDate}';
-  campaign              @title : '{i18n>Catalog.Campaing}';
-  market                @title : '{i18n>Catalog.Market}';
-  sku                   @title : '{i18n>Catalog.SKU}';
-  theme                 @title : '{i18n>Catalog.Theme}';
-  audience              @title : '{i18n>Catalog.Audience}';
-  subAudience           @title : '{i18n>Catalog.SubAudience}';
-  assetPortalLink       @title : '{i18n>Catalog.AssetPortalLink}';
-  ContentManagerName    @title : '{i18n>Catalog.ContentManager}';
+  AssetName             @title : '{i18n>Catalog.AssetName}';
+  ReadyDate             @title : '{i18n>Catalog.ReadyDate}';
+  Campaign              @title : '{i18n>Catalog.Campaing}';
+  Market                @title : '{i18n>Catalog.Market}';
+  Sku                   @title : '{i18n>Catalog.SKU}';
+  Theme                 @title : '{i18n>Catalog.Theme}';
+  Audience              @title : '{i18n>Catalog.Audience}';
+  SubAudience           @title : '{i18n>Catalog.SubAudience}';
+  AssetPortalLink       @title : '{i18n>Catalog.AssetPortalLink}';
+  ContentManager_Name   @title : '{i18n>Catalog.ContentManager}';
   ToProductionStatus_ID @title : '{i18n>Catalog.ProductionStatus}';
   ToContentManager_ID   @title : '{i18n>Catalog.ContentManager}';
   ToProductionStatus    @(
     title  : '{i18n>Catalog.ProductionStatus}',
     Common : {
       Text      : {
-        $value                 : ToProductionStatus_ID,
-        ![@UI.TextArrangement] : #TextFirst
+        $value                 : ToProductionStatus.ID,
+        ![@UI.TextArrangement] : #TextOnly
       },
       ValueList : {
         SearchSupported : false,
@@ -145,7 +143,7 @@ annotate CatalogService.Assets with @(UI : {
         Parameters      : [{
           $Type             : 'Common.ValueListParameterInOut',
           LocalDataProperty : ToProductionStatus_ID,
-          ValueListProperty : 'Code'
+          ValueListProperty : 'ID'
         }]
       }
     }
@@ -154,7 +152,7 @@ annotate CatalogService.Assets with @(UI : {
     title  : '{i18n>Catalog.AssetType}',
     Common : {
       Text      : {
-        $value                 : AssetTypeDescription,
+        $value                 : AssetType_Description,
         ![@UI.TextArrangement] : #TextFirst,
       },
       ValueList : {
@@ -164,12 +162,12 @@ annotate CatalogService.Assets with @(UI : {
         {
           $Type             : 'Common.ValueListParameterInOut',
           LocalDataProperty : ToAssetType_ID,
-          ValueListProperty : 'Code'
+          ValueListProperty : 'ID'
         },
         {
           $Type             : 'Common.ValueListParameterInOut',
-          LocalDataProperty : AssetTypeDescription,
-          ValueListProperty : 'Text'
+          LocalDataProperty : AssetType_Description,
+          ValueListProperty : 'Description'
         }
         ]
       }
@@ -179,7 +177,7 @@ annotate CatalogService.Assets with @(UI : {
     title  : '{i18n>Catalog.ContentManager}',
     Common : {
       Text      : {
-        $value                 : ContentManagerName,
+        $value                 : ContentManager_Name,
         ![@UI.TextArrangement] : #TextFirst
       },
       ValueList : {
@@ -189,12 +187,12 @@ annotate CatalogService.Assets with @(UI : {
         {
           $Type             : 'Common.ValueListParameterInOut',
           LocalDataProperty : ToContentManager_ID,
-          ValueListProperty : 'Code'
+          ValueListProperty : 'ID'
         },
         {
           $Type             : 'Common.ValueListParameterInOut',
-          LocalDataProperty : ContentManagerName,
-          ValueListProperty : 'Text'
+          LocalDataProperty : ContentManager_Name,
+          ValueListProperty : 'Name'
         }
         ]
       }
