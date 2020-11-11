@@ -32,12 +32,23 @@
 		<semantic:headerContent>
 			<l:HorizontalLayout allowWrapping="true">
 				<l:VerticalLayout class="sapUiLargeMarginEnd">
-					<ObjectAttribute title="Asset Name" text="{AssetName}" class="sapUiTinyMarginBottom" />
-					<ObjectAttribute title="Asset Type" text="{ToAssetType/Description}"/>
+					<ObjectAttribute 
+            title="Asset Name" 
+            text="{AssetName}" 
+            class="sapUiTinyMarginBottom" 
+          />
+					<ObjectAttribute 
+            title="Asset Type" 
+            text="{ToAssetType/Description}"
+          />
 				</l:VerticalLayout>
 
 				<l:VerticalLayout>
-					<ObjectAttribute title="Content Manager" text="{ToContentManager/Name}" class="sapUiTinyMarginBottom"/>
+					<ObjectAttribute 
+            title="Content Manager" 
+            text="{ToContentManager/Name}" 
+            class="sapUiTinyMarginBottom"
+          />
 					<ObjectStatus 
             title="Ready Date" 
             text="{
