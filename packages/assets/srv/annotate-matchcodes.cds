@@ -2,7 +2,7 @@
  * Annotations for VH_ProductionStatus Entity
  */
 annotate CatalogService.VH_ProductionStatus with {
-  Code @(
+  ID @(
     title  : '{i18n>Code}',
     Common : {Text : {$value : Text}}
   )
@@ -12,11 +12,11 @@ annotate CatalogService.VH_ProductionStatus with {
  * Annotations for VH_AssetType Entity
  */
 annotate CatalogService.VH_AssetType with {
-  Code @(
+  ID @(
     title  : '{i18n>Code}',
     Common : {Text : {$value : Text}}
   );
-  Text @(
+  Description @(
     title : '{i18n>Description}',
     UI    : {HiddenFilter : false}
   );
@@ -26,11 +26,11 @@ annotate CatalogService.VH_AssetType with {
  * Annotations for VH_ContentManager Entity
  */
 annotate CatalogService.VH_ContentManager with {
-  Code @(
+  ID @(
     title  : '{i18n>Code}',
     Common : {Text : {$value : Text}}
   );
-  Text @(
+  Name @(
     title : '{i18n>Description}',
     UI    : {HiddenFilter : false}
   );

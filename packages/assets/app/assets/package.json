@@ -1,0 +1,29 @@
+{
+    "name": "assets",
+    "version": "1.0.0",
+    "description": "Manage Digital Assets in a self-contained all-in-one fashion",
+    "main": "webapp/index.html",
+    "scripts": {
+        "start": "npm run start-app-router",
+        "start-app-router": "npm run build && run-script-os",
+        "start-app-router:default": "destinations='[{\"name\":\"odata\",\"url\":\"http://localhost:4004\",\"strictSSL\":false}]' node node_modules/@sap/approuter/approuter.js",
+        "start-app-router:windows": "set destinations=[{\"name\":\"odata\",\"url\":\"http://localhost:4004\",\"strictSSL\":false}] && node node_modules/@sap/approuter/approuter.js",
+        "build": "rimraf dist && ui5 build -a --include-task=generateManifestBundle generateCachebusterInfo"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/afuscella/manage-digital-assets.git"
+    },
+    "author": "Arthur Silva",
+    "license": "ISC",
+    "private": true,
+    "dependencies": {
+        "@sap/approuter": "6.5.1",
+        "@ui5/cli": "1.8.0"
+    },
+    "devDependencies": {
+        "@sapui5/generator-sapui5-templates": "^1.71.6",
+        "run-script-os": "1.0.7",
+        "rimraf": "3.0.0"
+    }
+}

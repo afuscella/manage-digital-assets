@@ -1,0 +1,16 @@
+{
+    "@sapui5/generator-sapui5-templates": {
+        "promptValues": {
+            "ApplicationTitle": "Manage Digital Assets",
+            "ApplicationDescription": "Manage Digital Assets",
+            "FLP": true,
+            "ServiceBaseUri": "http://localhost:4004/v2/catalog",
+            "DatasourceUrl": "/srv/",
+            "ObjectCollection": "Assets",
+            "ObjectCollection_Key": "AssetID",
+            "Object_Identifier": "Description",
+            "Object_Number": "",
+            "Object_UnitOfMeasure": ""
+        }
+    }
+}
