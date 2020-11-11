@@ -1,4 +1,4 @@
-﻿assetID;assetPortalLink;assetName;description;readyDate;theme;sku;campaign;audience;subAudience;market;ToProductionStatus_ID;ToAssetType_ID;ToContentManager_ID
+﻿AssetID;AssetPortalLink;AssetName;Description;ReadyDate;Theme;Sku;Campaign;Audience;SubAudience;Market;ToProductionStatus_ID;ToAssetType_ID;ToContentManager_ID
 AID13201;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13201;XYZ Poster;XYZ Poster for latest campaign;2019-11-30;Duplo;60704;Latest Campaign;Kids;Boys;Global;Done;201;101
 AID13202;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13202;XYZ Poster;XYZ Poster for latest campaign;2019-11-30;Single;60705;Latest Campaign;Kids;Girls;Global;Done;201;102
 AID13203;https://lap.corp.internal.com/Detail/Asset.aspx?id=AID13203;ABC Promotional Video;XYZ Poster for latest campaign;2019-11-30;Duplo;60706;Latest Campaign;Kids;Boys;Global;Done;202;101
