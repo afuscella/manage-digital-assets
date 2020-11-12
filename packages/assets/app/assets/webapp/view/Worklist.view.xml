@@ -1,36 +1,37 @@
 <mvc:View
 	controllerName="digitalassets.assets.controller.Worklist"
 	xmlns="sap.m"
+  xmlns:core="sap.ui.core" 
 	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:plugins="sap.m.plugins"
 	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
-	xmlns:smartTable="sap.ui.comp.smarttable">
+	xmlns:smartTable="sap.ui.comp.smarttable"
+  height="100%">
 
-  <VBox fitContainer="true">
-  	<smartFilterBar:SmartFilterBar
-      id="smartFilterBar"
-		  enableBasicSearch="true"
-      entitySet="Assets"
-      persistencyKey="SmartFilter_Explored" />
+ 	<smartFilterBar:SmartFilterBar
+    id="smartFilterBar"
+    enableBasicSearch="true"
+    entitySet="Assets"
+    persistencyKey="SmartFilter_Explored" />
 
-    <smartTable:SmartTable 
-      entitySet="Assets"
-      enableAutoBinding="true"
-      demandPopin="true"
-      useExportToExcel="false" 
-      useVariantManagement="false"
-      useTablePersonalisation="true"
-      header="Line Items"
-      smartFilterId="smartFilterBar"
-      persistencyKey="SmartTableRefApp_Explored" 
-      showDetailsButton="true"
-      showRowCount="true" 
-      tableType="ResponsiveTable" 
-      class="sapUiResponsiveContentPadding">
+  <smartTable:SmartTable
+    entitySet="Assets"
+    enableAutoBinding="true"
+    demandPopin="true"
+    useExportToExcel="false" 
+    useVariantManagement="false"
+    useTablePersonalisation="true"
+    showFullScreenButton="true"
+    header="{assetsCount}"
+    smartFilterId="smartFilterBar"
+    persistencyKey="SmartFilter_Explored" 
+    showRowCount="true" 
+    tableType="ResponsiveTable" 
+    class="sapUiResponsiveContentPadding">
 
-      <smartTable:layoutData>
-        <FlexItemData growFactor="1" baseSize="0%"/>
-      </smartTable:layoutData>
-    </smartTable:SmartTable>
-  </VBox>
+    <smartTable:layoutData>
+      <FlexItemData growFactor="1" baseSize="0%"/>
+    </smartTable:layoutData>
 
+  </smartTable:SmartTable>
 </mvc:View>
