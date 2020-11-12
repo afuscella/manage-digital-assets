@@ -8,6 +8,7 @@ Manage Digital Assets using Node.js
 * [Run the project in CF](#run-the-project-in-cf)
   - [Connect to your CF account](#connect-to-your-cf-account)
   - [Create a HANA Service in CF](#create-a-hana-service-in-cf)
+  - [Run service locally](#run-service-locally)
   - [Build and Deploy](#build-and-deploy)
   - [Run Run Run](#run-run-run)
 
@@ -124,6 +125,11 @@ cf create-service hanatrial hdi-shared ${APPLICATION_NAME}-hdi-container
 ```
 
 
+# Run service locally
+
+At `package/assets` dir, run `cds check`. The service should now be available at `http://localhost:4004/v2/catalog`. You're now able to move to the next step 🙌
+
+
 #### Build and Deploy
 
 Now that the service is create, you're now able to bind apps to the newly service.
@@ -139,6 +145,8 @@ cf push -f gen/srv
 Once it get finished, use `cf apps` to check whether application is running and which route is assigned with.
 
 
-#### Run Run Run
+#### Run Run Run 
+
+🐤🚗🚙🚗🚜
 
 Access your CF account, more precisely the `dev` space, and access the `assets-srv` app to get the application route.
